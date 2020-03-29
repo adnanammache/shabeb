@@ -1,0 +1,295 @@
+<script>
+$(document).ready(function() { $("#e1").select2(); });
+$(document).ready(function() { $("#picBeirut").select2(); });
+$(document).ready(function() { $("#picMetn").select2(); });
+$(document).ready(function() { $("#picBaabda").select2(); });
+$(document).ready(function() { $("#picAley").select2(); });
+$(document).ready(function() { $("#delivBeirut").select2(); });
+$(document).ready(function() { $("#delivMetn").select2(); });
+$(document).ready(function() { $("#delivBaabda").select2(); });
+$(document).ready(function() { $("#delivAley").select2(); });
+</script>
+<script id="rendered-js">
+      var input = $("#input");
+      var input2 = $("#input2");
+input.intlTelInput({
+initialCountry: "auto",
+separateDialCode: "true",
+preferredCountries: ["lb"],
+excludeCountries: ["il"],
+geoIpLookup: function(callback) {
+    $.get('https://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+      var countryCode = (resp && resp.country) ? resp.country : "";
+      callback(countryCode);
+      });
+      },
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/9.0.6/js/utils.js" });
+input.on("change", function () {
+  input.intlTelInput("setNumber", input.val());
+})
+input2.intlTelInput({
+  initialCountry: "auto",
+  separateDialCode: "true",
+  preferredCountries: ["lb"],
+  excludeCountries: ["il"],
+geoIpLookup: function(callback) {
+    $.get('https://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+      var countryCode = (resp && resp.country) ? resp.country : "";
+      callback(countryCode);
+      });
+      },
+  utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/9.0.6/js/utils.js" });
+input2.on("change", function () {
+  input2.intlTelInput("setNumber", input2.val());
+})
+    </script>
+<script>
+  document.getElementById("addBttn").addEventListener("click", showWhen);
+  document.getElementById("bttnBack").addEventListener("click", back1);
+  window.addEventListener('load', function () {
+      var i;
+      for (i = 1; i < 11; i++) {
+        var q = new Date();
+        var ta = q.getHours ();
+        if (ta > 14) {
+          gettime2(i);
+        } else { gettime(i)};
+      }
+  });
+  function showWhen () {
+    section1.style.display = "none";
+    section2.style.display = "block";
+    document.getElementById("nav1").className = "Nav Step C";
+    document.getElementById("nav2").className = "Nav Step";
+  }
+  function back1 () {
+    section1.style.display = "block";
+    section2.style.display = "none";
+    document.getElementById("nav1").className = "Nav Step";
+    document.getElementById("nav2").className = "Nav Step C";
+  }
+  document.getElementById("pickupButton").addEventListener("click", createTask1);
+  document.getElementById("buttonBack1").addEventListener("click", back2);
+  function createTask1 () {
+    section2.style.display = "none";
+    section3.style.display = "block";
+    document.getElementById("nav2").className = "Nav Step C";
+    document.getElementById("nav3").className = "Nav Step";
+  }
+  function back2 () {
+    section2.style.display = "block";
+    section3.style.display = "none";
+    document.getElementById("nav3").className = "Nav Step C";
+    document.getElementById("nav2").className = "Nav Step";
+  }
+  var weekday = new Array(7);
+  weekday[0] = "Sunday";
+  weekday[1] = "Monday";
+  weekday[2] = "Tuesday";
+  weekday[3] = "Wednesday";
+  weekday[4] = "Thursday";
+  weekday[5] = "Friday";
+  weekday[6] = "Saturday";
+  var month = new Array();
+  month[0] = "January";
+  month[1] = "February";
+  month[2] = "March";
+  month[3] = "April";
+  month[4] = "May";
+  month[5] = "June";
+  month[6] = "July";
+  month[7] = "August";
+  month[8] = "September";
+  month[9] = "October";
+  month[10] = "November";
+  month[11] = "December";
+  var d = new Date();
+  function gettime (x) {
+    d.setDate(d.getDate () + x - 1);
+    var n = d.getDate();
+    document.getElementById("day" + x).innerHTML = n;
+    var r = weekday[d.getDay()];
+    var a = month[d.getMonth()];
+    document.getElementById("month" + x).innerHTML = a;
+    document.getElementById("dayDay" + x).innerHTML = r; }
+  function gettime2 (x) {
+    var ta = d.getHours ();
+    d.setDate(d.getDate () + x);
+    var n = d.getDate();
+    document.getElementById("day" + x).innerHTML = n;
+    var r = weekday[d.getDay()];
+    var a = month[d.getMonth()];
+    document.getElementById("month" + x).innerHTML = a;
+    document.getElementById("dayDay" + x).innerHTML = r;
+  }
+  document.getElementById ("pickup-type").onchange= function () {onPChange ()};
+  document.getElementById ("deliv-type").onchange= function () {onDChange ()};
+  document.getElementById ("pickupDistrict").onchange= function () {onPChange ()};
+  document.getElementById ("deliveryDistrict").onchange= function () {onDDChange ()}
+  function onPChange () {
+    if (document.getElementById("pickup-type").value == "business") {
+      floorDiv.style.display = "none";
+      businessDiv.style.display = "block";
+    } else {
+      floorDiv.style.display = "block";
+      businessDiv.style.display = "none";
+    }
+  }
+  function onDChange () {
+    if (document.getElementById("deliv-type").value == "business") {
+      floorDeliveryDiv.style.display = "none";
+      businessDeliveryDiv.style.display = "block";
+    } else {
+      floorDeliveryDiv.style.display = "block";
+      businessDeliveryDiv.style.display = "none";
+    }
+  }
+  function onPChange () {
+    switch (document.getElementById("pickupDistrict").value){
+      case "Beirut":
+      dsitrictEmptyDiv.style.display = "none";
+      beirutDivPickup.style.display = "block";
+      baabdaDivPickup.style.display = "none";
+      metnDDPickup.style.display = "none";
+      aleyDivPickup.style.display = "none";
+      break;
+      case "Metn":
+      dsitrictEmptyDiv.style.display = "none";
+      beirutDivPickup.style.display = "none";
+      metnDDPickup.style.display = "block";
+      baabdaDivPickup.style.display = "none";
+      aleyDivPickup.style.display = "none";
+      break;
+      case "Aley":
+      dsitrictEmptyDiv.style.display = "none";
+      beirutDivPickup.style.display = "none";
+      metnDDPickup.style.display = "none";
+      baabdaDivPickup.style.display = "none";
+      aleyDivPickup.style.display = "block";
+      break;
+      case "Baabda":
+      dsitrictEmptyDiv.style.display = "none";
+      beirutDivPickup.style.display = "none";
+      metnDDPickup.style.display = "none";
+      baabdaDivPickup.style.display = "block";
+      aleyDivPickup.style.display = "none";
+      break;
+      default:
+      dsitrictEmptyDiv.style.display = "block";
+      beirutDivPickup.style.display = "none";
+      metnDDPickup.style.display = "none";
+      baabdaDivPickup.style.display = "none";
+      aleyDivPickup.style.display = "none";
+      break;
+    }
+  }
+  function onDDChange () {
+    switch (document.getElementById("deliveryDistrict").value){
+      case "Beirut":
+      dsitrictDelivEmptyDiv.style.display = "none";
+      beirutDivDelivery.style.display = "block";
+      baabdaDivDelivery.style.display = "none";
+      metnDivDelivery.style.display = "none";
+      aleyDivDelivery.style.display = "none";
+      break;
+      case "Metn":
+      dsitrictDelivEmptyDiv.style.display = "none";
+      beirutDivDelivery.style.display = "none";
+      metnDivDelivery.style.display = "block";
+      baabdaDivDelivery.style.display = "none";
+      aleyDivDelivery.style.display = "none";
+      break;
+      case "Aley":
+      dsitrictDelivEmptyDiv.style.display = "none";
+      beirutDivDelivery.style.display = "none";
+      metnDivDelivery.style.display = "none";
+      baabdaDivDelivery.style.display = "none";
+      aleyDivDelivery.style.display = "block";
+      break;
+      case "Baabda":
+      dsitrictDelivEmptyDiv.style.display = "none";
+      beirutDivDelivery.style.display = "none";
+      metnDivDelivery.style.display = "none";
+      baabdaDivDelivery.style.display = "block";
+      aleyDivDelivery.style.display = "none";
+      break;
+      default:
+      dsitrictDelivEmptyDiv.style.display = "block";
+      beirutDivDelivery.style.display = "none";
+      metnDivDelivery.style.display = "none";
+      baabdaDivDelivery.style.display = "none";
+      aleyDivDelivery.style.display = "none";
+      break;
+    }
+  }
+  var p;
+  for (p = 1; p < 11; p++) {
+    if (p == 1 && ta <= 14) {
+      document.getElementById('R'+ p).onclick = function () {showTime ()};
+    } else {
+      document.getElementById('R'+ p).onclick = function () {showTime2 ()}; }
+  }
+  function showTime () {
+    timeOption.style.display = "flex";
+    var ttime = new Date();
+    if (ta < 8) {
+      t1.style.display = "block";
+      t2.style.display = "block";
+      t3.style.display = "block";
+      t4.style.display = "block";
+      t5.style.display = "block";
+      t6.style.display = "block";
+    } else if (ta < 10) {
+      t1.style.display = "none";
+      t2.style.display = "block";
+      t3.style.display = "block";
+      t4.style.display = "block";
+      t5.style.display = "block";
+      t6.style.display = "block";
+    } else if (ta < 12) {
+      t1.style.display = "none";
+      t2.style.display = "none";
+      t3.style.display = "block";
+      t4.style.display = "block";
+      t5.style.display = "block";
+      t6.style.display = "block";
+    } else if (ta < 14) {
+      t1.style.display = "none";
+      t2.style.display = "none";
+      t3.style.display = "none";
+      t4.style.display = "block";
+      t5.style.display = "block";
+      t6.style.display = "block";
+    }  else if (ta < 16) {
+      t1.style.display = "none";
+      t2.style.display = "none";
+      t3.style.display = "none";
+      t4.style.display = "none";
+      t5.style.display = "block";
+      t6.style.display = "block";
+    } else  if (ta < 18) {
+      t1.style.display = "none";
+      t2.style.display = "none";
+      t3.style.display = "none";
+      t4.style.display = "none";
+      t5.style.display = "none";
+      t6.style.display = "block";
+    } else {
+      t1.style.display = "none";
+      t2.style.display = "none";
+      t3.style.display = "none";
+      t4.style.display = "none";
+      t5.style.display = "none";
+      t6.style.display = "block";
+    }
+  }
+  function showTime2 () {
+      timeOption.style.display = "flex";
+      t1.style.display = "block";
+      t2.style.display = "block";
+      t3.style.display = "block";
+      t4.style.display = "block";
+      t5.style.display = "block";
+      t6.style.display = "block";
+    }
+</script>
